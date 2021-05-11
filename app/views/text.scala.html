@@ -1,0 +1,9 @@
+@(vehicle: Vehicle, str: String)
+
+@main("Text") {
+    @if(vehicle.name){
+        <h1>Vehicle name: @vehicle.name, Wheels: @vehicle.wheels, Heavy: @vehicle.heavy</h1>
+    } else{
+        <h1>@str</h1>
+    }
+}

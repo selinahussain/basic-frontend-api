@@ -23,36 +23,29 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.index())
   }
 
-  def string( element: String) = Action { implicit request: Request[AnyContent] =>
-    println("Here" + element)
-    Ok(views.html.string(element))
-  }
+//  def string( element: String) = Action { implicit request: Request[AnyContent] =>
+//    println("Here" + element)
+//    Ok(views.html.text(element))
+//  }
 
   def checkVehicle( vehicle: String) = Action { implicit request: Request[AnyContent] =>
-    val carObj = Json.obj(
-      "wheels" -> "4",
-      "heavy"  -> true,
-      "name" -> "Bmw"
-    )
 
-    val bikeObj = Json.obj(
-      "wheels" -> "2",
-      "heavy"-> false,
-      "name" -> "Chopper"
-    )
 
-    val car = new Vehicle(wheels = 4, heavy= true, name= "BMW")
+    val car = new Vehicle(4, true,"BMW")
+    val bike = new Vehicle(2, false, "Chopper")
+    val empty = Empty
 
 
     vehicle match{
-      case "car" =>  Ok(views.html.vehicles(car))
-      case "bike" =>  Ok(Json.prettyPrint(bikeObj))
-      case _ => Ok(views.html.string("Please specify a vehicle"))
+      case "car" =>  Ok(views.html.text(car, ""))
+      case "bike" =>  Ok(views.html.text(bike, ""))
+      case _ => Ok(views.html.text(empty,"Not a vehicle"))
     }
   }
 }
 
-class Vehicle(val wheels: Int, val heavy : Boolean, val name: String){
+case class Vehicle( wheels: Int ,  heavy: Boolean ,  name: String ) {
+}
 
-
+object Empty extends Vehicle(null.asInstanceOf[Int], null.asInstanceOf[Boolean], null.asInstanceOf[String]){
 }

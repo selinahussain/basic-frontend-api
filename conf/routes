@@ -4,7 +4,8 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /vehicle/:vehicleName       controllers.HomeController.index(vehicleName)
+GET     /                           controllers.HomeController.index()
+GET     /vehicle/:vehicleName       controllers.HomeController.vehicle(vehicleName)
 
 
 #GET     /checkVehicle/:vehicle      controllers.HomeController.checkVehicle(vehicle)

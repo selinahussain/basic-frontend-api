@@ -1,4 +1,5 @@
 package controllers
+import models.Vehicle
 import play.api.data.Form
 import play.api.data.Forms.mapping
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
@@ -21,9 +22,7 @@ class FormController @Inject()(ws: WSClient, cc: ControllerComponents, implicit 
     val postData = request.body.asFormUrlEncoded
 
     val vehicleName = postData.map{args =>
-      //val vehicleName =
         args("Vehicle Name").head
-      //Ok(s" You put the ${vehicleName}")
     }.getOrElse(Ok("Error"))
 
     val dataToBeSend = Json.obj(
@@ -34,19 +33,14 @@ class FormController @Inject()(ws: WSClient, cc: ControllerComponents, implicit 
 
     futureResponse.map {
       response =>
-        Ok("hi" + response)
+        val js = Json.fromJson[Vehicle](response.json)
+        val veh = js.get
+        Ok(views.html.vehicle(veh))
     } recover {
       case _ => NotFound
     }
-
-
-
   }
-
-
 }
-
-
 
 case class BasicForm(
                      name: String)

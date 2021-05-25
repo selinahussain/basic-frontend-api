@@ -1,14 +1,12 @@
 package controllers
 
 import javax.inject._
-import play.api._
-import play.api.libs.json.{JsObject, JsValue, Json}
+import play.api.libs.json.{Json}
 import models.Vehicle
 
 import play.api.mvc._
 import play.api.libs.ws._
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext
 
 /**

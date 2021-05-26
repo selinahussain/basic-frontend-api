@@ -34,6 +34,7 @@ class HomeController @Inject()(ws: WSClient,
 
   def vehicle(vehicleName: String) = Action.async { implicit request: Request[AnyContent] =>
     val futureResult = ws.url(s"http://localhost:9001/checkVehicle/${vehicleName}").get()
+
     futureResult.map { response =>
       val js = Json.fromJson[Vehicle](response.json)
       val veh = js.get
